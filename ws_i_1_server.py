@@ -3,11 +3,11 @@ import asyncio
 import websockets
 
 async def hello(websocket):
-    name = await websocket.recv()
-    print(f"<<< {name}")
-    greeting = f"Hello {name}!"
+    msg = await websocket.recv()
+    print(f"{msg}")
+    greeting = f"Hello client ! Received {msg}!"
     await websocket.send(greeting)
-    print(f">>> {greeting}")
+    print(f"{greeting}")
 
 
 async def main():

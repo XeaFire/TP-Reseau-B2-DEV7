@@ -11,7 +11,8 @@ async def hello(websocket):
 
 
 async def main():
-    async with websockets.serve(hello, "5.5.5.11", 8765):
+    print("Server Started")
+    async with websockets.serve(hello, "localhost", 8765):
         await asyncio.Future()  # run forever
 
 if __name__ == "__main__":

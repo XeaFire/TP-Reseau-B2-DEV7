@@ -53,6 +53,7 @@ async def joinEvent(userid):
         servermessage = f"{username} a rejoint la chatroom".encode("utf-8")
         for id in CLIENTS:
             await CLIENTS[id]["websocket"].send(servermessage)
+        print(servermessage)
         return
 
 async def leaveEvent(userid):
@@ -60,6 +61,7 @@ async def leaveEvent(userid):
     for id in CLIENTS:
         servermessage = f"{username} a quitté la chatroom".encode("utf-8")
         await CLIENTS[id]["websocket"].send(servermessage)
+        print(servermessage)
     return
     
 
@@ -72,12 +74,11 @@ async def sendAll(message, userid):
         else:
             servermessage = f"{color}Vous avez dit : {message} \033[0m".encode("utf-8")
         await CLIENTS[id]["websocket"].send(servermessage)
+    print(servermessage)
     return
 
 async def handle_packet(websocket):
     userid = uuid.uuid4()
-
-    
     while True: # Gestion Pseudo
         data = await websocket.recv()
         if not data:

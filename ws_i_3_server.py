@@ -83,7 +83,7 @@ async def handle_packet(websocket):
         if not data:
             await asyncio.sleep(0.05)
         if re.match(r'^[a-z0-9_-]{3,15}$', data):
-                await generateNewClient(userid, websockets,data)
+                await generateNewClient(userid, websocket,data)
                 await joinEvent(userid)
                 break
 

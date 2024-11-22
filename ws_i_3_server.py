@@ -49,26 +49,29 @@ async def generateNewClient(userid, websocket,username):
     CLIENTS[userid] = newclient
 
 async def joinEvent(userid):
-        print(CLIENTS[userid]["username"])
-        servermessage = f"{CLIENTS[userid]["username"]} a rejoint la chatroom".encode("utf-8")
+        username = (CLIENTS[userid]["username"])
+        servermessage = f"{username} a rejoint la chatroom".encode("utf-8")
         for id in CLIENTS:
-            CLIENTS[id].websocket.send(servermessage)
+            CLIENTS[id]["websocket"].send(servermessage)
         return
 
 async def leaveEvent(userid):
+    username = (CLIENTS[userid]["username"])
     for id in CLIENTS:
-        servermessage = f"{CLIENTS[userid]["username"]} a quitté la chatroom".encode("utf-8")
-        CLIENTS[id].websocket.send(servermessage)
+        servermessage = f"{username} a quitté la chatroom".encode("utf-8")
+        CLIENTS[id]["websocket"].send(servermessage)
     return
     
 
 async def sendAll(message, userid):
+    username = (CLIENTS[userid]["username"])
+    color = CLIENTS[userid]["color"]
     for id in CLIENTS:
         if id == userid:
-            servermessage = f"{CLIENTS[userid].color}{CLIENTS[userid]["username"]} : {message} \033[0m".encode("utf-8")
+            servermessage = f"{color}{username} : {message} \033[0m".encode("utf-8")
         else:
-            servermessage = f"{CLIENTS[userid].color}Vous avez dit : {message} \033[0m".encode("utf-8")
-        CLIENTS[id].websocket.send(servermessage)
+            servermessage = f"{color}Vous avez dit : {message} \033[0m".encode("utf-8")
+        CLIENTS[id]["websocket"].send(servermessage)
     return
 
 async def handle_packet(websocket):

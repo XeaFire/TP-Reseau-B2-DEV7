@@ -2,27 +2,20 @@ function hello() {
     const uri = "ws://5.5.5.11:8765";
     const websks = new WebSocket(uri);
 
-    websks.onopen = () => {
-        websks.send(userInput);
-    };
+    websks.onopen = () => chat(websks);
 
     websks.onmessage = (event) => {
         console.log(event.data);
-        alert(event.data)
     };
-
-    let userInput = prompt("What's your name?")
-
-    while (true) {
-        userInput = prompt("Chatbox : ")
-        console.log("benn")
-        websks.send(userInput);
-
-    }
-
-
 }
 
+function chat(websks) {
+    let userInput;
 
-hello()
+    do {
+        userInput = prompt("Chatbox :");
+        if (userInput) websks.send(userInput);
+    } while (userInput);
+}
 
+hello();

@@ -70,9 +70,9 @@ async def sendAll(message, userid):
     color = CLIENTS[userid]["color"]
     for id in CLIENTS:
         if id == userid:
-            servermessage = f"{color}{username} : {message} \033[0m".encode("utf-8")
+            servermessage = f"{color}{username} : {message} \033[0m"
         else:
-            servermessage = f"{color}Vous avez dit : {message} \033[0m".encode("utf-8")
+            servermessage = f"{color}Vous avez dit : {message} \033[0m"
         await CLIENTS[id]["websocket"].send(servermessage)
     print(servermessage)
     return

@@ -16,6 +16,7 @@ function hello() {
 
     while (true) {
         userInput = prompt("Chatbox : ")
+        websks.send(userInput);
     }
 
 }

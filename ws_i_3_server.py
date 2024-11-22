@@ -49,7 +49,7 @@ async def generateNewClient(userid, websocket,username):
     CLIENTS[userid] = newclient
 
 async def joinEvent(userid):
-        print(CLIENTS[userid])
+        print(CLIENTS[userid].username)
         servermessage = f"{CLIENTS[userid].username} a rejoint la chatroom".encode("utf-8")
         for id in CLIENTS:
             CLIENTS[id].websocket.send(servermessage)

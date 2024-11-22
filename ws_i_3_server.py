@@ -50,16 +50,14 @@ async def generateNewClient(userid, websocket,username):
 
 async def joinEvent(userid):
         print(CLIENTS[userid]["username"])
-        servermessage = f"{CLIENTS[userid].username} a rejoint la chatroom".encode("utf-8")
+        servermessage = f"{CLIENTS[userid]["username"]} a rejoint la chatroom".encode("utf-8")
         for id in CLIENTS:
             CLIENTS[id].websocket.send(servermessage)
         return
 
 async def leaveEvent(userid):
     for id in CLIENTS:
-        if CLIENTS[id].username == '':
-            CLIENTS[id].username = CLIENTS[userid].writer
-        servermessage = f"{CLIENTS[userid].username} a quitté la chatroom".encode("utf-8")
+        servermessage = f"{CLIENTS[userid]["username"]} a quitté la chatroom".encode("utf-8")
         CLIENTS[id].websocket.send(servermessage)
     return
     
@@ -67,7 +65,7 @@ async def leaveEvent(userid):
 async def sendAll(message, userid):
     for id in CLIENTS:
         if id == userid:
-            servermessage = f"{CLIENTS[userid].color}{CLIENTS[userid].username} : {message} \033[0m".encode("utf-8")
+            servermessage = f"{CLIENTS[userid].color}{CLIENTS[userid]["username"]} : {message} \033[0m".encode("utf-8")
         else:
             servermessage = f"{CLIENTS[userid].color}Vous avez dit : {message} \033[0m".encode("utf-8")
         CLIENTS[id].websocket.send(servermessage)

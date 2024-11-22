@@ -40,17 +40,18 @@ global CLIENTS
 CLIENTS = {}
 
 
-async def generateNewClient(userid, websocket):
+async def generateNewClient(userid, websocket,username):
     newclient = {
-        "username": "Ben",
+        "username": username,
         "websocket" : websocket,
         "color" : generateRandomColor()
     }
     CLIENTS[userid] = newclient
 
 async def joinEvent(userid):
+        print(CLIENTS[userid])
+        servermessage = f"{CLIENTS[userid].username} a rejoint la chatroom".encode("utf-8")
         for id in CLIENTS:
-            servermessage = f"{CLIENTS[userid].username} a rejoint la chatroom".encode("utf-8")
             CLIENTS[id].websocket.send(servermessage)
         return
 
@@ -81,7 +82,7 @@ async def handle_packet(websocket):
         if not data:
             await asyncio.sleep(0.05)
         if re.match(r'^[a-z0-9_-]{3,15}$', data):
-                await generateNewClient(userid, websockets)
+                await generateNewClient(userid, websockets,data)
                 await joinEvent(userid)
                 break
 

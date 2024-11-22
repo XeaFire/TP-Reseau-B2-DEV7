@@ -86,6 +86,17 @@ async def handle_packet(websocket):
                 await generateNewClient(userid, websocket,data)
                 await joinEvent(userid)
                 break
+    while True: # Gestion messages
+        data = await websocket.recv()
+        if not data:
+            await asyncio.sleep(0.05)
+        print(f"Message received from {userid} :{data}")
+        if data == b'': # Gestion de la déco relou le loup
+            await leaveEvent(userid)
+            websocket.close()
+            return
+        else:
+            await sendAll(data, userid)
 
 async def main():
     print("Server Started")

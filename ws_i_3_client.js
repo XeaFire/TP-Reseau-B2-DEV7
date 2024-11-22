@@ -11,6 +11,13 @@ function hello() {
         console.log(event.data);
         alert(event.data)
     };
+
+    window.onbeforeunload = function () {
+        websocket.onclose = function () { }; // disable onclose handler first
+        websocket.close();
+    };
+
+
 }
 
 

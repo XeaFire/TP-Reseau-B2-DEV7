@@ -1,7 +1,8 @@
 function hello() {
     const uri = "ws://5.5.5.11:8765";
     const websks = new WebSocket(uri);
-    const userInput = prompt("What's your name?")
+    const userInput = prompt("Choose your username")
+
 
     websks.onopen = () => {
         websks.send(userInput);
@@ -12,11 +13,10 @@ function hello() {
         alert(event.data)
     };
 
-    window.onbeforeunload = function () {
-        websocket.onclose = function () { }; // disable onclose handler first
-        websocket.close();
-    };
-
+    while (true) {
+        const userInput = prompt("Choose your username")
+        websks.send(userInput);
+    }
 
 }
 

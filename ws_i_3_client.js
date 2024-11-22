@@ -1,8 +1,7 @@
 function hello() {
     const uri = "ws://5.5.5.11:8765";
     const websks = new WebSocket(uri);
-    let userInput = prompt("Choose your username")
-
+    const userInput = prompt("What's your name?")
 
     websks.onopen = () => {
         websks.send(userInput);
@@ -10,15 +9,13 @@ function hello() {
 
     websks.onmessage = (event) => {
         console.log(event.data);
+        alert(event.data)
     };
 
-    userInput.onchange
-
     while (true) {
-        userInput = prompt("Chatbox : ")
+        let userInput = prompt("Chatbox : ")
         websks.send(userInput);
     }
-
 }
 
 

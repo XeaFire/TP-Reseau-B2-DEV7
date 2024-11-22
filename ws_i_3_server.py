@@ -50,7 +50,7 @@ async def generateNewClient(userid, websocket,username):
 
 async def joinEvent(userid):
         username = (CLIENTS[userid]["username"])
-        servermessage = f"{username} a rejoint la chatroom".encode("utf-8")
+        servermessage = f"{username} a rejoint la chatroom"
         for id in CLIENTS:
             await CLIENTS[id]["websocket"].send(servermessage)
         print(servermessage)
@@ -59,7 +59,7 @@ async def joinEvent(userid):
 async def leaveEvent(userid):
     username = (CLIENTS[userid]["username"])
     for id in CLIENTS:
-        servermessage = f"{username} a quitté la chatroom".encode("utf-8")
+        servermessage = f"{username} a quitté la chatroom"
         await CLIENTS[id]["websocket"].send(servermessage)
         print(servermessage)
     return

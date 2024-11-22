@@ -52,14 +52,14 @@ async def joinEvent(userid):
         username = (CLIENTS[userid]["username"])
         servermessage = f"{username} a rejoint la chatroom".encode("utf-8")
         for id in CLIENTS:
-            CLIENTS[id]["websocket"].send(servermessage)
+            await CLIENTS[id]["websocket"].send(servermessage)
         return
 
 async def leaveEvent(userid):
     username = (CLIENTS[userid]["username"])
     for id in CLIENTS:
         servermessage = f"{username} a quitté la chatroom".encode("utf-8")
-        CLIENTS[id]["websocket"].send(servermessage)
+        await CLIENTS[id]["websocket"].send(servermessage)
     return
     
 
@@ -71,7 +71,7 @@ async def sendAll(message, userid):
             servermessage = f"{color}{username} : {message} \033[0m".encode("utf-8")
         else:
             servermessage = f"{color}Vous avez dit : {message} \033[0m".encode("utf-8")
-        CLIENTS[id]["websocket"].send(servermessage)
+        await CLIENTS[id]["websocket"].send(servermessage)
     return
 
 async def handle_packet(websocket):
